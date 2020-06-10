@@ -1,4 +1,4 @@
-package com.HomeTaskManager.HomeTaskManagerBackend.accesingdatamysql;
+package com.HomeTaskManager.HomeTaskManagerBackend.user;
 
 import java.util.List;
 

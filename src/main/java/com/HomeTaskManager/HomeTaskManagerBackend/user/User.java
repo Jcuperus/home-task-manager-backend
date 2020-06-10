@@ -1,4 +1,4 @@
-package com.HomeTaskManager.HomeTaskManagerBackend.accesingdatamysql;
+package com.HomeTaskManager.HomeTaskManagerBackend.user;
 
 
 import javax.persistence.Entity;
@@ -20,9 +20,11 @@ public class User
 
   protected User() { }
     
-    public User(String name, String role) {
+    public User(String name, String role, String password, String email) {
       this.name = name;
       this.role = role;
+      this.password = password;
+      this.email = email;
     }
 
     public void setName(String name){
