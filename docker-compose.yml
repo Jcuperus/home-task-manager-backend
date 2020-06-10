@@ -1,0 +1,12 @@
+version: '3'
+services:
+  mysql:
+    container_name: task_manager_mysql
+    image: mysql:latest
+    ports:
+      - 8083:3306
+    volumes:
+      - .\HouseTaskManagerDB.sql:/docker-entrypoint-initdb.d/HouseTaskManagerDB.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: test1234
+      MYSQL_DATABASE: HomeTaskManager

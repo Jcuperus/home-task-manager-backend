@@ -12,7 +12,7 @@ CREATE SCHEMA IF NOT EXISTS `HomeTaskManager` DEFAULT CHARACTER SET utf8;
 -- -----------------------------------------------------
 -- Table `HomeTaskManager`.`User`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `HometaskManager`.`User` (
+CREATE TABLE IF NOT EXISTS `HomeTaskManager`.`User` (
   `Id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `Name` VARCHAR(45) NULL,
   `Password` VARCHAR(200) NULL,

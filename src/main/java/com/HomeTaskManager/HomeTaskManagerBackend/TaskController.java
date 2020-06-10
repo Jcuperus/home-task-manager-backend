@@ -13,6 +13,6 @@ public class TaskController
 
     @GetMapping("/task")
     public Task task() {
-        return new Task(counter.incrementAndGet(), "Feed cat", "Give him the good stuff");  
+        return new Task(counter.incrementAndGet(), "Feed cat", "Give him the good stuff");
     }
 }
