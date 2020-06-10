@@ -7,12 +7,12 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema mydb
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `HomeTaskManager` DEFAULT CHARACTER SET utf8;
+CREATE SCHEMA IF NOT EXISTS `hometaskmanager` DEFAULT CHARACTER SET utf8;
 
 -- -----------------------------------------------------
 -- Table `HomeTaskManager`.`User`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `HometaskManager`.`User` (
+CREATE TABLE IF NOT EXISTS `hometaskmanager`.`User` (
   `Id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `Name` VARCHAR(45) NULL,
   `Password` VARCHAR(200) NULL,
@@ -25,7 +25,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `HomeTaskManager`.`Group`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `HomeTaskManager`.`Group` (
+CREATE TABLE IF NOT EXISTS `hometaskmanager`.`Group` (
   `Id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `Name` VARCHAR(45) NULL,
   PRIMARY KEY (`Id`))
@@ -35,7 +35,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `HomeTaskManager`.`Task`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `HomeTaskManager`.`Task` (
+CREATE TABLE IF NOT EXISTS `hometaskmanager`.`Task` (
   `Id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `Name` VARCHAR(45) NULL,
   `Description` VARCHAR(255) NULL,
@@ -61,7 +61,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `HomeTaskManager`.`GroupHasUser`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `HomeTaskManager`.`GroupHasUser` (
+CREATE TABLE IF NOT EXISTS `hometaskmanager`.`GroupHasUser` (
   `User_Id` INT UNSIGNED NOT NULL,
   `Group_Id` INT UNSIGNED NOT NULL,
   INDEX `fk_GroupHasUser_User1_idx` (`User_Id` ASC) VISIBLE,

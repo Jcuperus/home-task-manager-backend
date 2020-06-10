@@ -1,10 +1,16 @@
 package com.HomeTaskManager.HomeTaskManagerBackend;
 
 import com.HomeTaskManager.HomeTaskManagerBackend.models.Task;
+
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.concurrent.atomic.AtomicLong;
+
+@Controller
+@RequestMapping(path="/task")
 
 @RestController
 public class TaskController
