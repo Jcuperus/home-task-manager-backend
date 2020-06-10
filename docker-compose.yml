@@ -9,4 +9,4 @@ services:
       - .\HouseTaskManagerDB.sql:/docker-entrypoint-initdb.d/HouseTaskManagerDB.sql
     environment:
       MYSQL_ROOT_PASSWORD: test1234
-      MYSQL_DATABASE: HomeTaskManager
+      MYSQL_DATABASE: hometaskmanager

@@ -10,10 +10,10 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 CREATE SCHEMA IF NOT EXISTS `hometaskmanager` DEFAULT CHARACTER SET utf8;
 
 -- -----------------------------------------------------
--- Table `HomeTaskManager`.`User`
+-- Table `hometaskmanager`.`User`
 -- -----------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS `HomeTaskManager`.`User` (
+CREATE TABLE IF NOT EXISTS `hometaskmanager`.`User` (
   `Id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `Name` VARCHAR(45) NULL,
   `Password` VARCHAR(200) NULL,
@@ -24,7 +24,7 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `HomeTaskManager`.`Group`
+-- Table `hometaskmanager`.`Group`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `hometaskmanager`.`Group` (
   `Id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -34,7 +34,7 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `HomeTaskManager`.`Task`
+-- Table `hometaskmanager`.`Task`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `hometaskmanager`.`Task` (
   `Id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -60,7 +60,7 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `HomeTaskManager`.`GroupHasUser`
+-- Table `hometaskmanager`.`GroupHasUser`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `hometaskmanager`.`GroupHasUser` (
   `User_Id` INT UNSIGNED NOT NULL,
