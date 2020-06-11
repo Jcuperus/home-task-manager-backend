@@ -1,3 +1,5 @@
+-- noinspection SqlNoDataSourceInspectionForFile
+
 -- MySQL Workbench Forward Engineering
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
@@ -40,10 +42,10 @@ CREATE TABLE IF NOT EXISTS `hometaskmanager`.`task` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
   `description` VARCHAR(255) NULL,
-  `duedate` DATETIME NULL,
+  `due_date` DATETIME NULL,
   `user_id` INT UNSIGNED NOT NULL,
   `group_id` INT UNSIGNED NOT NULL,
-  PRIMARY KEY (`id`, `user_id`, `group_id`),
+  PRIMARY KEY (`id`),
   INDEX `fk_task_user_idx` (`user_id` ASC) VISIBLE,
   INDEX `fk_task_group1_idx` (`group_id` ASC) VISIBLE,
   CONSTRAINT `fk_task_user`

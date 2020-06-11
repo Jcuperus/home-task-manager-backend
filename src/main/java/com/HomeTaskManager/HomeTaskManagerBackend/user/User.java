@@ -18,7 +18,7 @@ public class User
   private String email;
   private String role;
 
-  protected User() { }
+  public User() { }
     
     public User(String name, String role, String password, String email) {
       this.name = name;

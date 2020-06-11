@@ -1,30 +1,30 @@
-package com.HomeTaskManager.HomeTaskManagerBackend.group;
+package com.HomeTaskManager.HomeTaskManagerBackend.taskgroup;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 //This import is not used but may be used
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 
-public class GroupController {
+public class TaskGroupController
+{
     @Autowired
-    private GroupRepository groupRepository;
+    private TaskGroupRepository taskGroupRepository;
 
     @PostMapping(path="/add")
     public @ResponseBody String addNewGroup (@RequestParam String name){
-        Group n = new Group();
+        TaskGroup n = new TaskGroup();
         n.setName(name);
-        groupRepository.save(n);
+        taskGroupRepository.save(n);
         return "Saved";
     }
 
     @GetMapping(path="/all")
-    public @ResponseBody Iterable<Group> getAllUsers(){
-        return groupRepository.findAll();
+    public @ResponseBody Iterable<TaskGroup> getAllUsers(){
+        return taskGroupRepository.findAll();
     }
 }
