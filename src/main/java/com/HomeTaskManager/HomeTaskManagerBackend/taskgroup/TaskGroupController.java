@@ -15,7 +15,7 @@ public class TaskGroupController
     @Autowired
     private TaskGroupRepository taskGroupRepository;
 
-    @PostMapping(path="/add")
+    @PostMapping(path="/addgroup")
     public @ResponseBody String addNewGroup (@RequestParam String name){
         TaskGroup n = new TaskGroup();
         n.setName(name);

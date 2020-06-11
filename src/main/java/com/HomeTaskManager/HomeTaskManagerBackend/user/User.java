@@ -15,25 +15,29 @@ public class User
   private Long id;
   private String name;
   private String password;
-  private String email;
-  private String role;
+  // private String email;
+  // private String role;
 
   public User() { }
     
     public User(String name, String role, String password, String email) {
       this.name = name;
-      this.role = role;
+      // this.role = role;
       this.password = password;
-      this.email = email;
+      // this.email = email;
     }
 
     public void setName(String name){
       this.name = name;
     }
 
-    public void setEmail(String email){
-      this.email = email;
+    public void setPassword(String password){
+      this.password = password;
     }
+
+    // public void setEmail(String email){
+    //   this.email = email;
+    // }
 
     public String getName(){
       return name;
