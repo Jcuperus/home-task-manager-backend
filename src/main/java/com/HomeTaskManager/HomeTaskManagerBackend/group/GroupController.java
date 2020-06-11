@@ -15,7 +15,7 @@ public class GroupController {
     @Autowired
     private GroupRepository groupRepository;
 
-    @PostMapping(path="/add")
+    @PostMapping(path="/addgroup")
     public @ResponseBody String addNewGroup (@RequestParam String name){
         Group n = new Group();
         n.setName(name);
@@ -23,8 +23,8 @@ public class GroupController {
         return "Saved";
     }
 
-    @GetMapping(path="/all")
-    public @ResponseBody Iterable<Group> getAllUsers(){
+    @GetMapping(path="/allgroup")
+    public @ResponseBody Iterable<Group> getAllGroups(){
         return groupRepository.findAll();
     }
 }

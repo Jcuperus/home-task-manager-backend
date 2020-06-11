@@ -14,10 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-//This class should be used to get the username and password form the DB
-import com.HomeTaskManager.HomeTaskManagerBackend.JwtUserDetailsService;
 
 import com.HomeTaskManager.HomeTaskManagerBackend.JwtTokenUtil;
+import com.HomeTaskManager.HomeTaskManagerBackend.user.MyUserDetailsService;
 import com.HomeTaskManager.HomeTaskManagerBackend.JwtRequest;
 import com.HomeTaskManager.HomeTaskManagerBackend.JwtResponse;
 
@@ -30,23 +29,23 @@ public class JwtAuthenticationController {
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
-    
+
     @Autowired
-    private JwtUserDetailsService userDetailsService;
+    private MyUserDetailsService userDetailsService;
 
     @RequestMapping(value="/authenticate", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 
     authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
-    final UserDetails userDetails = userDetailsService.loadByUsername(authenticationRequest.getUsername());
+    final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 
     final String token = jwtTokenUtil.generateToken(userDetails);
 
     return ResponseEntity.ok(new JwtResponse(token));
     }
 
-    private void authenticate(String userName, String password) throws Exception {
+    private void authenticate(String username, String password) throws Exception {
         try{
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
         }catch (DisabledException e){
