@@ -13,12 +13,12 @@ CREATE SCHEMA IF NOT EXISTS `hometaskmanager` DEFAULT CHARACTER SET utf8;
 -- Table `hometaskmanager`.`User`
 -- -----------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS `hometaskmanager`.`User` (
-  `Id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `Name` VARCHAR(45) NULL,
-  `Password` VARCHAR(200) NULL,
-  `Email` VARCHAR(45) NULL,
-  `Role` CHAR(1) NULL,
+CREATE TABLE IF NOT EXISTS `hometaskmanager`.`user` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NULL,
+  `password` VARCHAR(200) NULL,
+  `email` VARCHAR(45) NULL,
+  `role` CHAR(1) NULL,
   PRIMARY KEY (`Id`))
 ENGINE = InnoDB;
 
@@ -26,34 +26,34 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `hometaskmanager`.`Group`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `hometaskmanager`.`Group` (
-  `Id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `Name` VARCHAR(45) NULL,
-  PRIMARY KEY (`Id`))
+CREATE TABLE IF NOT EXISTS `hometaskmanager`.`group` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
 -- Table `hometaskmanager`.`Task`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `hometaskmanager`.`Task` (
-  `Id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `Name` VARCHAR(45) NULL,
-  `Description` VARCHAR(255) NULL,
-  `DueDate` DATETIME NULL,
-  `User_Id` INT UNSIGNED NOT NULL,
-  `Group_Id` INT UNSIGNED NOT NULL,
-  PRIMARY KEY (`Id`, `User_Id`, `Group_Id`),
-  INDEX `fk_Task_User_idx` (`User_Id` ASC) VISIBLE,
-  INDEX `fk_Task_Group1_idx` (`Group_Id` ASC) VISIBLE,
-  CONSTRAINT `fk_Task_User`
-    FOREIGN KEY (`User_Id`)
-    REFERENCES `mydb`.`User` (`Id`)
+CREATE TABLE IF NOT EXISTS `hometaskmanager`.`task` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NULL,
+  `description` VARCHAR(255) NULL,
+  `duedate` DATETIME NULL,
+  `user_id` INT UNSIGNED NOT NULL,
+  `group_id` INT UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`, `user_id`, `group_id`),
+  INDEX `fk_task_user_idx` (`user_id` ASC) VISIBLE,
+  INDEX `fk_task_group1_idx` (`group_id` ASC) VISIBLE,
+  CONSTRAINT `fk_task_user`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `mydb`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Task_Group1`
-    FOREIGN KEY (`Group_Id`)
-    REFERENCES `mydb`.`Group` (`Id`)
+  CONSTRAINT `fk_task_group1`
+    FOREIGN KEY (`group_id`)
+    REFERENCES `mydb`.`group` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -62,19 +62,19 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `hometaskmanager`.`GroupHasUser`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `hometaskmanager`.`GroupHasUser` (
-  `User_Id` INT UNSIGNED NOT NULL,
-  `Group_Id` INT UNSIGNED NOT NULL,
-  INDEX `fk_GroupHasUser_User1_idx` (`User_Id` ASC) VISIBLE,
-  INDEX `fk_GroupHasUser_Group1_idx` (`Group_Id` ASC) VISIBLE,
-  CONSTRAINT `fk_GroupHasUser_User1`
-    FOREIGN KEY (`User_Id`)
-    REFERENCES `mydb`.`User` (`Id`)
+CREATE TABLE IF NOT EXISTS `hometaskmanager`.`grouphasuser` (
+  `user_id` INT UNSIGNED NOT NULL,
+  `group_id` INT UNSIGNED NOT NULL,
+  INDEX `fk_grouphasuser_user1_idx` (`user_id` ASC) VISIBLE,
+  INDEX `fk_grouphasuser_group1_idx` (`group_id` ASC) VISIBLE,
+  CONSTRAINT `fk_grouphasuser_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `mydb`.`user` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_GroupHasUser_Group1`
-    FOREIGN KEY (`Group_Id`)
-    REFERENCES `mydb`.`Group` (`Id`)
+  CONSTRAINT `fk_grouphasuser_group1`
+    FOREIGN KEY (`group_id`)
+    REFERENCES `mydb`.`group` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
