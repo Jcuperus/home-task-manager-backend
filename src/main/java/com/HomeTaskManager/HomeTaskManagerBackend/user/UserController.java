@@ -1,29 +1,25 @@
 package com.HomeTaskManager.HomeTaskManagerBackend.user;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
-public class UserController {
-
-    @Autowired
+@RestController
+@RequestMapping("/users")
+public class UserController
+{
     private UserRepository userRepository;
 
-    @PostMapping(path="/add")
-    public @ResponseBody String addNewUser (@RequestParam String name, @RequestParam String password) {
-        User n = new User();
-        n.setName(name);
-        n.setPassword(password);
-        userRepository.save(n);
-        return "Saved";
+    private BCryptPasswordEncoder passwordEncoder;
+
+    public UserController(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping(path="/users/all")
-    public @ResponseBody Iterable<User> getAllUsers(){
-        return userRepository.findAll();
+    @PostMapping("/create")
+    public @ResponseBody String signUp(@RequestBody AppUser user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+        return "User created";
     }
 }

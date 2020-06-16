@@ -1,10 +1,8 @@
 package com.HomeTaskManager.HomeTaskManagerBackend.user;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends CrudRepository<User, Long> {
-
-  User findByName(String name);
-
-  User findById(long id);
+public interface UserRepository extends JpaRepository<AppUser, Long>
+{
+    AppUser findUserByUsername(String username);
 }
