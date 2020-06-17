@@ -10,6 +10,7 @@ public class MyUserPrinciple implements UserDetails {
     private User user;
 
     public MyUserPrinciple(User user) {
+        System.out.println("test");
         this.user = user;
     }
     // ...
