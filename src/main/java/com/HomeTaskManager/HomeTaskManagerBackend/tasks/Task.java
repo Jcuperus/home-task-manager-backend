@@ -1,9 +1,8 @@
 package com.HomeTaskManager.HomeTaskManagerBackend.tasks;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.HomeTaskManager.HomeTaskManagerBackend.taskgroup.TaskGroup;
+
+import javax.persistence.*;
 
 @Entity
 public class Task
@@ -12,9 +11,9 @@ public class Task
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
 
-    private long groupId;
-
-    private long userId;
+    @ManyToOne
+    @JoinColumn(name="group_id")
+    private TaskGroup taskGroup;
 
     private String name;
 
@@ -28,22 +27,6 @@ public class Task
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public long getGroupId() {
-        return groupId;
-    }
-
-    public void setGroupId(long groupId) {
-        this.groupId = groupId;
-    }
-
-    public long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(long userId) {
-        this.userId = userId;
     }
 
     public String getName() {

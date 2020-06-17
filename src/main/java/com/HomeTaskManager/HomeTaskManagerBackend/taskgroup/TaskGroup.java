@@ -1,9 +1,9 @@
 package com.HomeTaskManager.HomeTaskManagerBackend.taskgroup;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.HomeTaskManager.HomeTaskManagerBackend.tasks.Task;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class TaskGroup
@@ -11,6 +11,9 @@ public class TaskGroup
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
+
+    @OneToMany(mappedBy="taskGroup")
+    private List<Task> tasks;
 
     private String name;
 
