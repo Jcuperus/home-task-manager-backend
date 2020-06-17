@@ -1,6 +1,7 @@
 package com.HomeTaskManager.HomeTaskManagerBackend.tasks;
 
 import com.HomeTaskManager.HomeTaskManagerBackend.taskgroup.TaskGroup;
+import com.HomeTaskManager.HomeTaskManagerBackend.user.AppUser;
 
 import javax.persistence.*;
 
@@ -15,6 +16,10 @@ public class Task
     @JoinColumn(name="group_id")
     private TaskGroup taskGroup;
 
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private AppUser user;
+
     private String name;
 
     private String description;
@@ -27,6 +32,22 @@ public class Task
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public TaskGroup getTaskGroup() {
+        return taskGroup;
+    }
+
+    public void setTaskGroup(TaskGroup taskGroup) {
+        this.taskGroup = taskGroup;
+    }
+
+    public AppUser getUser() {
+        return user;
+    }
+
+    public void setUser(AppUser user) {
+        this.user = user;
     }
 
     public String getName() {

@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface TaskGroupRepository extends CrudRepository<TaskGroup, Long> {
 
-  List<TaskGroup> findByName(String name);
+    List<TaskGroup> findByName(String name);
 
-  TaskGroup findById(long id);
+    TaskGroup findById(long id);
 }

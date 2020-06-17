@@ -1,9 +1,11 @@
 package com.HomeTaskManager.HomeTaskManagerBackend.taskgroup;
 
 import com.HomeTaskManager.HomeTaskManagerBackend.tasks.Task;
+import com.HomeTaskManager.HomeTaskManagerBackend.user.AppUser;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class TaskGroup
@@ -13,7 +15,11 @@ public class TaskGroup
     private long id;
 
     @OneToMany(mappedBy="taskGroup")
-    private List<Task> tasks;
+    private Set<Task> tasks;
+
+    @ManyToMany
+    @JoinTable(name="task_group_app_user", joinColumns=@JoinColumn(name="group_id"), inverseJoinColumns=@JoinColumn(name="user_id"))
+    private Set<AppUser> users;
 
     private String name;
 

@@ -1,32 +1,45 @@
 package com.HomeTaskManager.HomeTaskManagerBackend.tasks;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.HomeTaskManager.HomeTaskManagerBackend.user.AppUser;
+import com.HomeTaskManager.HomeTaskManagerBackend.user.UserRepository;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/tasks")
 public class TaskController
 {
-    @Autowired
-    private TaskRepository taskRepository;
+    private final TaskRepository taskRepository;
+    private final UserRepository userRepository;
+
+    public TaskController(TaskRepository taskRepository, UserRepository userRepository) {
+        this.taskRepository = taskRepository;
+        this.userRepository = userRepository;
+    }
 
     @GetMapping("/{id}")
     public @ResponseBody Optional<Task> task(@PathVariable long id) {
         return taskRepository.findById(id);
     }
 
-    @GetMapping("/all")
-    public @ResponseBody Iterable<Task> tasks() {
+    @GetMapping("")
+    public @ResponseBody Iterable<Task> tasks(@RequestParam(name="group", required=false) Long[] groups) {
+        if (groups != null && groups.length > 0) {
+            return taskRepository.findAllByTaskGroup_IdIn(groups);
+        }
+
         return taskRepository.findAll();
     }
 
     @PostMapping("")
-    public @ResponseBody String createTask(@RequestBody Task task) {
+    public @ResponseBody String createTask(@RequestBody Task task, Principal principal) {
         try {
-            Task createdTask = taskRepository.save(task);
-            return String.format("Created task id=%s %s", createdTask.getId(), task.getId());
+            task.setUser(userRepository.findUserByUsername(principal.getName()));
+            taskRepository.save(task);
+            return String.format("Created task id=%s", task.getId());
         } catch (Exception e) {
             return e.getMessage();
         }
@@ -45,7 +58,6 @@ public class TaskController
     @DeleteMapping("/{id}")
     public @ResponseBody String deleteTask(@PathVariable long id) {
         taskRepository.deleteById(id);
-
         return String.format("Deleted %s", id);
     }
 }

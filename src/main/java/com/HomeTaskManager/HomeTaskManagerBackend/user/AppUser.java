@@ -1,10 +1,12 @@
 package com.HomeTaskManager.HomeTaskManagerBackend.user;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.HomeTaskManager.HomeTaskManagerBackend.taskgroup.TaskGroup;
+import com.HomeTaskManager.HomeTaskManagerBackend.tasks.Task;
+
+import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 public class AppUser
@@ -13,7 +15,15 @@ public class AppUser
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @OneToMany(mappedBy="user")
+    private List<Task> tasks;
+
+    @ManyToMany(mappedBy = "users")
+    private Set<TaskGroup> groups;
+
     private String username;
+
     private String password;
 
     public AppUser() {
