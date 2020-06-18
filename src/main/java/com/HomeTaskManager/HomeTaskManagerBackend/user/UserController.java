@@ -1,6 +1,7 @@
 package com.HomeTaskManager.HomeTaskManagerBackend.user;
 
-import org.springframework.http.HttpHeaders;
+import java.util.Optional;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,4 +23,12 @@ public class UserController {
         userRepository.save(user);
         return "User created";
     }
+
+    @GetMapping("/{id}")
+    public @ResponseBody Optional<AppUser> task(@PathVariable long id) {
+        return userRepository.findById(id);
+    }
+
+
+
 }
