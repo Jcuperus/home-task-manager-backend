@@ -1,6 +1,5 @@
 package com.HomeTaskManager.HomeTaskManagerBackend.user;
 
-
 import com.HomeTaskManager.HomeTaskManagerBackend.taskgroup.TaskGroup;
 import com.HomeTaskManager.HomeTaskManagerBackend.tasks.Task;
 
@@ -9,14 +8,13 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-public class AppUser
-{
+public class AppUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToMany(mappedBy="user")
+    @OneToMany(mappedBy = "user")
     private List<Task> tasks;
 
     @ManyToMany(mappedBy = "users")

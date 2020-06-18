@@ -22,7 +22,9 @@ public class UserController
     public @ResponseBody String signUp(@RequestBody AppUser user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
+        
         return "User created";
+        
     }
 
     @GetMapping("/{id}")
