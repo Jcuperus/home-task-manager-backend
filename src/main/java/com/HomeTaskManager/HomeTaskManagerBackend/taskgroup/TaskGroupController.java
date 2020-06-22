@@ -1,30 +1,39 @@
 package com.HomeTaskManager.HomeTaskManagerBackend.taskgroup;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-//This import is not used but may be used
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import com.HomeTaskManager.HomeTaskManagerBackend.common.MessageResponse;
+import com.HomeTaskManager.HomeTaskManagerBackend.user.AppUser;
+import com.HomeTaskManager.HomeTaskManagerBackend.user.UserRepository;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.security.Principal;
+import java.util.Optional;
 
+@RestController
+@RequestMapping("/groups")
 public class TaskGroupController
 {
-    @Autowired
-    private TaskGroupRepository taskGroupRepository;
+    private final TaskGroupRepository taskGroupRepository;
+    private final UserRepository userRepository;
 
-    @PostMapping(path="/addgroup")
-    public @ResponseBody String addNewGroup (@RequestParam String name){
-        TaskGroup n = new TaskGroup();
-        n.setName(name);
-        taskGroupRepository.save(n);
-        return "Saved";
+    public TaskGroupController(TaskGroupRepository taskGroupRepository, UserRepository userRepository) {
+        this.taskGroupRepository = taskGroupRepository;
+        this.userRepository = userRepository;
     }
 
-    @GetMapping(path="/all")
-    public @ResponseBody Iterable<TaskGroup> getAllUsers(){
-        return taskGroupRepository.findAll();
+    @GetMapping("{id}")
+    public @ResponseBody
+    Optional<TaskGroup> taskGroup(@PathVariable long id) {
+        return taskGroupRepository.findById(id);
+    }
+
+    @GetMapping("")
+    public @ResponseBody Iterable<TaskGroup> taskGroups(Principal principal) {
+        return taskGroupRepository.findAllByUsers_Username(principal.getName());
+    }
+
+    @PostMapping("")
+    public ResponseEntity<Object> createTaskGroup(@RequestBody TaskGroup taskGroup, Principal principal) {
+        return MessageResponse.createSet("message", String.format("Task group %s created", "test"));
     }
 }

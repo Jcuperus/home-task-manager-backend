@@ -1,11 +1,12 @@
 package com.HomeTaskManager.HomeTaskManagerBackend.tasks;
 
-import com.HomeTaskManager.HomeTaskManagerBackend.user.AppUser;
+import com.HomeTaskManager.HomeTaskManagerBackend.common.MessageResponse;
 import com.HomeTaskManager.HomeTaskManagerBackend.user.UserRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -28,36 +29,36 @@ public class TaskController
     @GetMapping("")
     public @ResponseBody Iterable<Task> tasks(@RequestParam(name="group", required=false) Long[] groups) {
         if (groups != null && groups.length > 0) {
-            return taskRepository.findAllByTaskGroup_IdIn(groups);
+            return taskRepository.findAllByTaskGroup_IdInOrderByDueDate(groups);
         }
 
         return taskRepository.findAll();
     }
 
     @PostMapping("")
-    public @ResponseBody String createTask(@RequestBody Task task, Principal principal) {
+    public ResponseEntity<Object> createTask(@RequestBody Task task, Principal principal) {
         try {
             task.setUser(userRepository.findUserByUsername(principal.getName()));
             taskRepository.save(task);
-            return String.format("Created task id=%s", task.getId());
+            return MessageResponse.createSet("message", String.format("Created task with id=%s", task.getId()));
         } catch (Exception e) {
-            return e.getMessage();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: Failed creating task");
         }
     }
 
     @PutMapping("")
-    public @ResponseBody String updateTask(@RequestBody Task task) {
+    public ResponseEntity<Object> updateTask(@RequestBody Task task) {
         if (taskRepository.existsById(task.getId())) {
             taskRepository.save(task);
-            return String.format("Updated task %s", task.getId());
+            return MessageResponse.createSet("message", String.format("Updated task with id=%s", task.getId()));
         }
 
-        return "nope.avi";
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: Updated task does not exist");
     }
 
     @DeleteMapping("/{id}")
-    public @ResponseBody String deleteTask(@PathVariable long id) {
+    public ResponseEntity<Object> deleteTask(@PathVariable long id) {
         taskRepository.deleteById(id);
-        return String.format("Deleted %s", id);
+        return MessageResponse.createSet("message", String.format("Deleted task with id=%s", id));
     }
 }

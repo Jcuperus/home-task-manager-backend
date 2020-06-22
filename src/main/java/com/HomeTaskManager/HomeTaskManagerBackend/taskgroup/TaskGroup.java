@@ -11,14 +11,14 @@ import java.util.Set;
 public class TaskGroup
 {
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @OneToMany(mappedBy="taskGroup")
+    @OneToMany(mappedBy = "taskGroup")
     private Set<Task> tasks;
 
-    @ManyToMany
-    @JoinTable(name="task_group_app_user", joinColumns=@JoinColumn(name="group_id"), inverseJoinColumns=@JoinColumn(name="user_id"))
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "task_group_app_user", joinColumns = @JoinColumn(name = "group_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<AppUser> users;
 
     private String name;
@@ -37,5 +37,9 @@ public class TaskGroup
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setUsers(Set<AppUser> users) {
+        this.users = users;
     }
 }

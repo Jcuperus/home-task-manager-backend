@@ -2,8 +2,11 @@ package com.HomeTaskManager.HomeTaskManagerBackend.tasks;
 
 import com.HomeTaskManager.HomeTaskManagerBackend.taskgroup.TaskGroup;
 import com.HomeTaskManager.HomeTaskManagerBackend.user.AppUser;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 @Entity
 public class Task
@@ -14,6 +17,7 @@ public class Task
 
     @ManyToOne
     @JoinColumn(name="group_id")
+    @NotNull
     private TaskGroup taskGroup;
 
     @ManyToOne
@@ -24,7 +28,8 @@ public class Task
 
     private String description;
 
-    private String dueDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dueDate;
 
     public long getId() {
         return id;
@@ -38,6 +43,7 @@ public class Task
         return taskGroup;
     }
 
+    @JsonProperty("group")
     public void setTaskGroup(TaskGroup taskGroup) {
         this.taskGroup = taskGroup;
     }
@@ -66,11 +72,11 @@ public class Task
         this.description = description;
     }
 
-    public String getDueDate() {
+    public Date getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(String dueDate) {
+    public void setDueDate(Date dueDate) {
         this.dueDate = dueDate;
     }
 

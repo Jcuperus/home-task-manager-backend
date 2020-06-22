@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface TaskRepository extends CrudRepository<Task, Long>
 {
-    public List<Task> findAllByTaskGroup_IdIn(Long[] groupIds);
+    public List<Task> findAllByTaskGroup_IdInOrderByDueDate(Long[] groupIds);
 }

@@ -1,8 +1,11 @@
 package com.HomeTaskManager.HomeTaskManagerBackend.user;
 
-import org.springframework.http.HttpHeaders;
+import com.HomeTaskManager.HomeTaskManagerBackend.common.MessageResponse;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 @RestController
 @RequestMapping("/users")
@@ -17,10 +20,16 @@ public class UserController
         this.passwordEncoder = passwordEncoder;
     }
 
+    @GetMapping("/current")
+    public ResponseEntity<AppUser> currentUser(Principal principal) {
+        AppUser currentUser = userRepository.findUserByUsername(principal.getName());
+        return ResponseEntity.ok(currentUser);
+    }
+
     @PostMapping("/create")
-    public @ResponseBody String signUp(@RequestBody AppUser user) {
+    public ResponseEntity<Object> signUp(@RequestBody AppUser user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
-        return "User created";
+        return MessageResponse.createSet("message", String.format("User %s created", user.getUsername()));
     }
 }

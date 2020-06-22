@@ -4,9 +4,7 @@ import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface TaskGroupRepository extends CrudRepository<TaskGroup, Long> {
-
-    List<TaskGroup> findByName(String name);
-
-    TaskGroup findById(long id);
+public interface TaskGroupRepository extends CrudRepository<TaskGroup, Long>
+{
+    public List<TaskGroup> findAllByUsers_Username(String username);
 }
