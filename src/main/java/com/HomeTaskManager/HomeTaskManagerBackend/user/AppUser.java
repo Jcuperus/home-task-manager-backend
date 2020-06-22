@@ -1,6 +1,5 @@
 package com.HomeTaskManager.HomeTaskManagerBackend.user;
 
-
 import com.HomeTaskManager.HomeTaskManagerBackend.taskgroup.TaskGroup;
 import com.HomeTaskManager.HomeTaskManagerBackend.tasks.Task;
 import com.fasterxml.jackson.annotation.JsonIgnore;

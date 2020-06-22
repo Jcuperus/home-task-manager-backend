@@ -32,4 +32,7 @@ public class UserController
         userRepository.save(user);
         return MessageResponse.createSet("message", String.format("User %s created", user.getUsername()));
     }
+
+
+
 }
