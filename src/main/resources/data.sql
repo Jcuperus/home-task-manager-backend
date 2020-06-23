@@ -5,7 +5,7 @@ TRUNCATE app_user;
 TRUNCATE task_group;
 SET foreign_key_checks = 1;
 
-INSERT INTO app_user(id, username, password) VALUES (1, 'jaep', '$2a$10$3XyRxmN3ihSogstuLxwAGODQFZyw8zAOcMQ86JxyKT0gvsO5LThPG');
+INSERT INTO app_user(id, username, password) VALUES (1, 'tester', '$2a$10$3XyRxmN3ihSogstuLxwAGODQFZyw8zAOcMQ86JxyKT0gvsO5LThPG');
 
 INSERT INTO task_group(id, name) VALUES
     (1, 'Home'),
