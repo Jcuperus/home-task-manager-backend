@@ -42,4 +42,8 @@ public class TaskGroup
     public void setUsers(Set<AppUser> users) {
         this.users = users;
     }
+
+    public void addUser(AppUser user){
+        users.add(user);
+    }
 }
