@@ -33,6 +33,11 @@ public class UserController
         return MessageResponse.createSet("message", String.format("User %s created", user.getUsername()));
     }
 
+    @PostMapping("/check")
+    public ResponseEntity<Object> checkToken(@RequestBody String token){
+        return MessageResponse.createSet("message", "Token is valid");
+    }
+
 
 
 }
