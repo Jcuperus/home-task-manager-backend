@@ -34,6 +34,9 @@ public class TaskGroupController
 
     @PostMapping("")
     public ResponseEntity<Object> createTaskGroup(@RequestBody TaskGroup taskGroup, Principal principal) {
+        AppUser currentUser = userRepository.findUserByUsername(principal.getName());
+        taskGroup.addUser(currentUser);
+        taskGroupRepository.save(taskGroup);
         return MessageResponse.createSet("message", String.format("Task group %s created", "test"));
     }
 }

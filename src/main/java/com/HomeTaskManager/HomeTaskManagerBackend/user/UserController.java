@@ -2,6 +2,7 @@ package com.HomeTaskManager.HomeTaskManagerBackend.user;
 
 import com.HomeTaskManager.HomeTaskManagerBackend.common.MessageResponse;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +19,17 @@ public class UserController
     public UserController(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+    }
+
+    @GetMapping("/name/{username}")
+    public @ResponseBody AppUser getUserByName(@PathVariable String username) throws UsernameNotFoundException{
+        AppUser user = userRepository.findUserByUsername(username);
+            if(user == null){
+                throw new UsernameNotFoundException(username);
+            }
+            else {
+                return user;
+            }
     }
 
     @GetMapping("/current")
