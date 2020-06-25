@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/groups")
@@ -25,6 +26,12 @@ public class TaskGroupController
     public @ResponseBody
     Optional<TaskGroup> taskGroup(@PathVariable long id) {
         return taskGroupRepository.findById(id);
+    }
+
+    @GetMapping("{id}/users")
+    public @ResponseBody Iterable<AppUser> groupUsers(@PathVariable long id){
+        TaskGroup tg = (TaskGroup)taskGroup(id).get();
+        return tg.getUsers();
     }
 
     @GetMapping("")

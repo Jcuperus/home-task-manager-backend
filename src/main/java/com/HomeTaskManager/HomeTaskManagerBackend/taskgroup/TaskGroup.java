@@ -46,4 +46,8 @@ public class TaskGroup
     public void addUser(AppUser user){
         users.add(user);
     }
+
+    public Set<AppUser> getUsers(){
+        return users;
+    }
 }
