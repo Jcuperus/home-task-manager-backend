@@ -63,7 +63,7 @@ public class TaskController
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: Updated task does not exist");
     }
 
-    @PostMapping("/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteTask(@PathVariable long id) {
         taskRepository.deleteById(id);
         return MessageResponse.createSet("message", String.format("Deleted task with id=%s", id));

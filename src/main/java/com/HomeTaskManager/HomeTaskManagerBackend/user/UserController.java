@@ -22,14 +22,15 @@ public class UserController
     }
 
     @GetMapping("/name/{username}")
-    public @ResponseBody AppUser getUserByName(@PathVariable String username) throws UsernameNotFoundException{
+    public @ResponseBody AppUser getUserByName(@PathVariable String username) throws UsernameNotFoundException {
         AppUser user = userRepository.findUserByUsername(username);
-            if(user == null){
-                throw new UsernameNotFoundException(username);
-            }
-            else {
-                return user;
-            }
+
+        if(user == null){
+            throw new UsernameNotFoundException(username);
+        }
+        else {
+            return user;
+        }
     }
 
     @GetMapping("/current")
