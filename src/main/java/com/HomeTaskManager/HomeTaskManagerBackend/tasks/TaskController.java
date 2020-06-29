@@ -39,11 +39,18 @@ public class TaskController
     public ResponseEntity<Object> createTask(@RequestBody Task task, Principal principal) {
         try {
             task.setUser(userRepository.findUserByUsername(principal.getName()));
+            task.setIsDone(false);
             taskRepository.save(task);
             return MessageResponse.createSet("message", String.format("Created task with id=%s", task.getId()));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: Failed creating task");
         }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> finishTask(@PathVariable Long id){
+        taskRepository.findById(id).get().setIsDone(true);
+        return MessageResponse.createSet("message", String.format("finished task with id=%d", taskRepository.findById(id).get()));
     }
 
     @PutMapping("")
