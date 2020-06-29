@@ -30,8 +30,8 @@ public class TaskGroupController
 
     @GetMapping("{id}/users")
     public @ResponseBody Iterable<AppUser> groupUsers(@PathVariable long id){
-        TaskGroup tg = (TaskGroup)taskGroup(id).get();
-        return tg.getUsers();
+        Optional<TaskGroup> tg = taskGroupRepository.findById(id);
+        return tg.get().getUsers();
     }
 
     @GetMapping("")
@@ -45,5 +45,13 @@ public class TaskGroupController
         taskGroup.addUser(currentUser);
         taskGroupRepository.save(taskGroup);
         return MessageResponse.createSet("message", String.format("Task group %s created", "test"));
+    }
+
+    @PostMapping("{id}/leave")
+    public @ResponseBody ResponseEntity<Object> deleteTaskGroup(@PathVariable Long id, Principal principal){
+        TaskGroup tg = (TaskGroup)taskGroup(id).get();
+        tg.removeUserByName(principal.getName());
+        taskGroupRepository.save(tg);
+        return MessageResponse.createSet("message", String.format("Deleted user of task group with id=%s", id));
     }
 }
