@@ -8,8 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-public class TaskGroup
-{
+public class TaskGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -23,8 +22,18 @@ public class TaskGroup
 
     private String name;
 
+    private String color;
+
     public long getId() {
         return id;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public void setId(long id) {
