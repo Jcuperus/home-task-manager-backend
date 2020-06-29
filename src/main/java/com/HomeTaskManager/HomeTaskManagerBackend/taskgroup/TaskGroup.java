@@ -47,6 +47,10 @@ public class TaskGroup
         users.add(user);
     }
 
+    public void removeUserByName(String username){
+        users.removeIf(user -> user.getUsername().equals(username));
+    }
+
     public Set<AppUser> getUsers(){
         return users;
     }
