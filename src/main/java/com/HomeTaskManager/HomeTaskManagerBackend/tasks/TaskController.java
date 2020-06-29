@@ -48,9 +48,11 @@ public class TaskController
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> finishTask(@PathVariable Long id){
-        taskRepository.findById(id).get().setIsDone(true);
-        return MessageResponse.createSet("message", String.format("finished task with id=%d", taskRepository.findById(id).get()));
+    public ResponseEntity<Object> finishTask(@PathVariable long id){
+        Task task = taskRepository.findById(id).get();
+        task.setIsDone(true);
+        taskRepository.save(task);
+        return MessageResponse.createSet("message", String.format("finished task with id=%d", task.getId()));
     }
 
     @PutMapping("")
