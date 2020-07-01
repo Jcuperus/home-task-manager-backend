@@ -1,12 +1,15 @@
 package com.HomeTaskManager.HomeTaskManagerBackend.tasks;
 
 import com.HomeTaskManager.HomeTaskManagerBackend.common.MessageResponse;
+import com.HomeTaskManager.HomeTaskManagerBackend.taskgroup.TaskGroup;
+import com.HomeTaskManager.HomeTaskManagerBackend.taskgroup.TaskGroupRepository;
 import com.HomeTaskManager.HomeTaskManagerBackend.user.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -14,10 +17,12 @@ import java.util.Optional;
 public class TaskController
 {
     private final TaskRepository taskRepository;
+    private final TaskGroupRepository groupRepository;
     private final UserRepository userRepository;
 
-    public TaskController(TaskRepository taskRepository, UserRepository userRepository) {
+    public TaskController(TaskRepository taskRepository, TaskGroupRepository groupRepository, UserRepository userRepository) {
         this.taskRepository = taskRepository;
+        this.groupRepository = groupRepository;
         this.userRepository = userRepository;
     }
 
@@ -27,12 +32,20 @@ public class TaskController
     }
 
     @GetMapping("")
-    public @ResponseBody Iterable<Task> tasks(@RequestParam(name="group", required=false) Long[] groups) {
+    public @ResponseBody Iterable<Task> tasks(@RequestParam(name="group", required=false) Long[] groups, Principal principal) {
         if (groups != null && groups.length > 0) {
             return taskRepository.findAllByTaskGroup_IdInOrderByDueDate(groups);
         }
 
-        return taskRepository.findAll();
+        // Get user groups
+        List<TaskGroup> userGroups = groupRepository.findAllByUsers_Username(principal.getName());
+        Long[] groupIds = new Long[userGroups.size()];
+
+        for (int i = 0; i < userGroups.size(); i++) {
+            groupIds[i] = userGroups.get(i).getId();
+        }
+
+        return taskRepository.findAllByTaskGroup_IdInOrderByDueDate(groupIds);
     }
 
     @PostMapping("")
