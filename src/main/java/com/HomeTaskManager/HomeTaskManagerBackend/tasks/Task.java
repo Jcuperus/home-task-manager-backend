@@ -28,6 +28,8 @@ public class Task
 
     private String description;
 
+    private boolean isDone;
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date dueDate;
 
@@ -80,6 +82,14 @@ public class Task
         this.dueDate = dueDate;
     }
 
+    public boolean getIsDone(){
+        return isDone;
+    }
+
+    public void setIsDone(boolean isDone){
+        this.isDone = isDone;
+    }
+
     @Override
     public String toString() {
         return "Task{" +
@@ -87,6 +97,7 @@ public class Task
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", dueDate='" + dueDate + '\'' +
+                ", isDone='" + isDone + '\'' +
                 '}';
     }
 }
