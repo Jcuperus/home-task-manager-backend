@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,15 +38,7 @@ public class TaskController
             return taskRepository.findAllByTaskGroup_IdInOrderByDueDate(groups);
         }
 
-        // Get user groups
-        List<TaskGroup> userGroups = groupRepository.findAllByUsers_Username(principal.getName());
-        Long[] groupIds = new Long[userGroups.size()];
-
-        for (int i = 0; i < userGroups.size(); i++) {
-            groupIds[i] = userGroups.get(i).getId();
-        }
-
-        return taskRepository.findAllByTaskGroup_IdInOrderByDueDate(groupIds);
+        return new ArrayList<>();
     }
 
     @PostMapping("")
